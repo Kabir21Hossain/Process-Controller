@@ -3,5 +3,13 @@
     "title": "Complete project report",
     "completed": false,
     "priority": "high",
-    "createdAt": "2025-11-04T15:09:23.518Z"
+    "createdAt": "2025-11-04T15:24:55.446Z"
+}
+
+{
+    "error": "Task not found"
+}
+
+{
+    "error": "Invalid ID format"
 }
