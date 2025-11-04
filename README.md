@@ -13,12 +13,13 @@ cat <<EOF > README.md
 3. Install dependencies:
    \`\`\`
    npm install
+   npm install express
    \`\`\`
-4. Run the server:
+5. Run the server:
    \`\`\`
    node src/index.js
    \`\`\`
-5. Open your browser and visit:
+6. Open your browser and visit:
    \`\`\`
    http://localhost:3000
    \`\`\`
