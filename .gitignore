@@ -1,0 +1,19 @@
+# Node.js dependencies
+task_management/node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+task_management/.env
+
+# OS/system files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist/
+build/
