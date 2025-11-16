@@ -1,36 +1,50 @@
+// src/routes/tasks.js
 const express = require('express');
 const router = express.Router();
 
-// Dummy data for tasks
-const tasks = [
-  { id: 1, title: "Complete project report", completed: false, priority: "high", createdAt: new Date() },
-  { id: 2, title: "Buy groceries", completed: true, priority: "low", createdAt: new Date() },
-  { id: 3, title: "Read Node.js documentation", completed: false, priority: "medium", createdAt: new Date() },
-  { id: 4, title: "Clean workspace", completed: true, priority: "low", createdAt: new Date() },
-  { id: 5, title: "Plan next week tasks", completed: false, priority: "high", createdAt: new Date() }
-];
-
-// ✅ GET /tasks → return all tasks
+// GET /tasks - retrieve tasks
 router.get('/', (req, res) => {
-  res.json(tasks);
+    const tasks = req.app.locals.tasks;
+
+    res.status(200).json({
+        success: true,
+        data: tasks
+    });
 });
 
-// ✅ GET /tasks/:id → return one task by ID
-router.get('/:id', (req, res) => {
-  const id = Number(req.params.id);
+// POST /tasks - create a task
+router.post('/', (req, res) => {
+    try {
+        const { title } = req.body;
 
-  // ✅ Handle invalid ID format (not a number)
-  if (isNaN(id)) {
-    return res.status(400).json({ error: "Invalid ID format" });
-  }
+        // Validate input
+        if (!title || typeof title !== 'string' || title.trim().length === 0) {
+            return res.status(400).json({
+                success: false,
+                error: 'Title is required and must be a non-empty string'
+            });
+        }
 
-  const task = tasks.find(t => t.id === id);
+        const newTask = {
+            id: Date.now(),
+            title: title.trim(),
+            completed: false
+        };
 
-  if (!task) {
-    return res.status(404).json({ error: "Task not found" });
-  }
+        const tasks = req.app.locals.tasks;
+        tasks.push(newTask);
 
-  res.json(task);
+        res.status(201).json({
+            success: true,
+            data: newTask
+        });
+
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            error: 'Internal server error'
+        });
+    }
 });
 
 module.exports = router;
